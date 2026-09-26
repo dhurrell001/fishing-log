@@ -1,0 +1,75 @@
+/* form styles */
+.catch-log-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  background-color: #1a1a1a;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+
+
+
+
+/* Page styles   */
+ .main {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+
+  background-color: #030608;
+
+  background-image:
+    /* sheen */
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.10) 0%,
+      rgba(255, 255, 255, 0.03) 25%,
+      transparent 45%,
+      rgba(0, 0, 0, 0.18) 100%
+    ),
+
+    /* carbon weave */
+    linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.08) 25%,
+      transparent 25%,
+      transparent 75%,
+      rgba(255, 255, 255, 0.08) 75%
+    ),
+
+    linear-gradient(
+      -45deg,
+      rgba(0, 0, 0, 0.7) 25%,
+      transparent 25%,
+      transparent 75%,
+      rgba(0, 0, 0, 0.7) 75%
+    );
+
+  background-size:
+    100% 100%,
+    12px 12px,
+    12px 12px;
+}
+.header {
+    display: flex;
+  justify-content: center;
+  width: 100%;
+  /* background-color: var(--background); */
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: white;
+}
+#content {
+  flex: 0.8;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
