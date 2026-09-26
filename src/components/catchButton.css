@@ -1,0 +1,93 @@
+.catch-button {
+  width: 180px;
+  height: 180px;
+
+  border-radius: 50%;
+    border: 6px solid #173d24;;
+
+  background: #b00000;
+  color: white;
+
+  font-size: 2rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+
+  cursor: pointer;
+background: radial-gradient(
+    circle at 35% 30%,
+    #4f8f63 0%,
+    #2f6f44 35%,
+    #1e4f31 72%,
+    #12351f 100%
+  );
+/* background: radial-gradient(
+    circle at 35% 30%,
+    #f04444 0%,
+    #d00000 35%,
+    #9b0000 70%,
+    #690000 100%
+  ); */
+
+  transition:
+    transform 0.1s ease,
+    background 0.1s ease,
+    box-shadow 0.1s ease;
+}
+
+.catch-button:active {
+  transform: translateY(7px) scale(0.97);
+
+  background: radial-gradient(
+    circle at 35% 30%,
+    #7bd391 0%,
+    #46a861 35%,
+    #2c6f42 72%,
+    #183d25 100%
+  );
+
+  box-shadow:
+    inset 3px 3px 6px rgba(255, 255, 255, 0.22),
+    inset -4px -4px 8px rgba(0, 0, 0, 0.3),
+    0 3px 0 #0d2717,
+    0 6px 10px rgba(0, 0, 0, 0.4);
+}
+.catch-wrapper {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ripple {
+  position: absolute;
+
+  width: 180px;
+  height: 180px;
+
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+
+  opacity: 0;
+  pointer-events: none;
+}
+
+.catch-wrapper.rippling .ripple-one{
+  animation: ripple 0.7s ease-out;
+}
+
+.catch-wrapper.rippling .ripple-two {
+  animation: ripple 0.9s ease-out 0.1s;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
