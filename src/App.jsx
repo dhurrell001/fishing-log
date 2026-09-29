@@ -1,36 +1,19 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import './App.css'
-import CatchButton from './components/catchButton.jsx'
-import Header from './components/header.jsx'
-import SummaryText from './components/summaryText.jsx'
-import Navbar from './components/navBar.jsx'
-import CatchLogForm from './components/catchLogPage.jsx'
+import HomePage from "./pages/Home/homePage";
+import CatchLogForm from "./pages/logCatch/catchLogPage";
+import DisplayCatch from "./pages/displayCatchPage/displayCatch";
 
 function App() {
-
-
   return (
-    <div className = "main">
-      <header className="header">
-        <Header />
-      </header>
-      <section id="content">
-       
-        
-        <CatchButton onClick={() => {}} />
-       
-      </section>
-      <CatchLogForm />
-      <section id="summary">
-        <SummaryText />
-      </section>
-
-      
-        <Navbar />
-      
-
-    </div>
-  )
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/log-catch" element={<CatchLogForm />} />
+        <Route path="/displayCatch" element={<DisplayCatch />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
