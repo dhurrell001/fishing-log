@@ -4,7 +4,7 @@ import Header from "../../components/header.jsx";
 import SummaryText from "../../components/summaryText.jsx";
 import Navbar from "../../components/navBar.jsx";
 import { clearCatches } from "../../data/catchLogRepository.js";
-import CatchMap from "../../components/catchMap.jsx";
+// import CatchMap from "../../components/catchMap.jsx";
 
 
 // import CatchLogForm from '../logCatch/catchLogPage.jsx'
@@ -17,7 +17,7 @@ function HomePage() {
       </header>
       <button onClick={clearCatches}>
   Clear DB
-  <CatchMap />
+  
 </button>
       <section id="content">
         <CatchButton onClick={() => {}} />
