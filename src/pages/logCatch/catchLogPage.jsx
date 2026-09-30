@@ -3,10 +3,13 @@ import Header from "../../components/header.jsx";
 import Navbar from "../../components/navBar.jsx";
 import { useState } from "react";
 import { saveCatch } from "../../data/catchLogRepository.js";
+// import CatchMap from "../../components/catchMap.jsx";
+import MapModal from "../../components/mapModal.jsx";
 // for the form to log a catch. Store the  fielddata in state.
 // Input validated in form. On submit, log the data to console. Later,
 // send to backend for storage in database.
 export default function CatchLogForm() {
+  const [showModal, setShowModal] = useState(false);
   const [catchData, setCatchData] = useState({
     fishType: "",
     fishWeight: "",
@@ -16,6 +19,8 @@ export default function CatchLogForm() {
     baitType: "",
     location: "",
     photo: null,
+    latitude: null,
+    longitude: null,
   });
   const fishNames = [
     { id: 1, name: "Bass" },
@@ -34,7 +39,7 @@ export default function CatchLogForm() {
 
     console.log("SUBMIT PRESSED");
     console.log(catchData);
-
+//   Save the catch data to the database using the saveCatch function.
     try {
       const id = await saveCatch(catchData);
       console.log("Catch saved with ID:", id);
@@ -49,6 +54,22 @@ export default function CatchLogForm() {
       <header className="header">
         <Header />
       </header>
+      {showModal && (
+        <div className="modal-overlay">
+          <MapModal
+            onClose={() => setShowModal(false)}
+            onConfirm={(position) => {
+              setCatchData({
+                ...catchData,
+                latitude: position[0],
+                longitude: position[1],
+              });
+
+              setShowModal(false);
+            }}
+          />
+        </div>
+      )}
       <section id="content">
         <form onSubmit={handleSubmit} className="catch-log-form">
           <div className="form-row">
@@ -163,7 +184,7 @@ export default function CatchLogForm() {
           </div>
           <div className="form-row">
             <label htmlFor="location">Location:</label>
-            <input
+            {/* <input
               id="location"
               type="text"
               name="location"
@@ -174,7 +195,14 @@ export default function CatchLogForm() {
                   location: e.target.value,
                 })
               }
-            />
+            /> */}
+            <button
+              type="button"
+              className="location-btn"
+              onClick={() => setShowModal(!showModal)}
+            >
+              Show Map
+            </button>
           </div>
           <div className="form-row">
             <label htmlFor="photo">Photo:</label>
