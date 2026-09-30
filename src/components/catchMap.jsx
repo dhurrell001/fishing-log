@@ -2,7 +2,7 @@ import { MapContainer, TileLayer, Marker } from "react-leaflet";
 import { useEffect, useRef, useState } from "react";
 import "leaflet/dist/leaflet.css";
 
-export default function CatchMap() {
+export default function CatchMap({ onPositionChange }) {
   // Stores the current selected position as:
   // [latitude, longitude]
   // Starts as null because the user's location is not known yet.
@@ -13,28 +13,30 @@ export default function CatchMap() {
   const markerRef = useRef(null);
 
   // Runs once when the CatchMap component first loads.
-  useEffect(() => {
-    // Ask the browser/device for the user's current location.
-    navigator.geolocation.getCurrentPosition(
-      // Runs if the location request is successful.
-      (location) => {
-        // Store the latitude and longitude in React state.
-        setPosition([
-          location.coords.latitude,
-          location.coords.longitude,
-        ]);
+const [locationError, setLocationError] = useState("");
 
-        // Useful during development to see how accurate the GPS reading is.
-        // Accuracy is returned in metres.
-        console.log("GPS accuracy:", location.coords.accuracy);
-      },
-
-      // Runs if the browser cannot obtain the user's location.
-      (error) => {
-        console.error("Location error:", error);
-      }
-    );
-  }, []); // Empty dependency array means this effect runs once on mount.
+useEffect(() => {
+    // Use the browser's geolocation API to get the user's current position.
+  navigator.geolocation.getCurrentPosition(
+    // If the user allows location access, update the position state with the user's current latitude and longitude.
+    (location) => {
+      setPosition([
+        location.coords.latitude,
+        location.coords.longitude,
+      ]);
+      // Call the onPositionChange callback with the user's current position.
+        onPositionChange([
+    location.coords.latitude,
+    location.coords.longitude,
+  ]);
+    },
+    // If the user denies location access or an error occurs, log the error and set an error message.
+    (error) => {
+      console.error(error);
+      setLocationError(error.message);
+    }
+  );
+}, []);
 
   // Runs when the user finishes dragging the map marker.
   function handleDragEnd() {
@@ -47,12 +49,21 @@ export default function CatchMap() {
       const newPosition = marker.getLatLng();
 
       // Update React state with the user's corrected position.
-      setPosition([newPosition.lat, newPosition.lng]);
+      const updatedPosition = [
+      newPosition.lat,
+      newPosition.lng,
+    ];
+    // Update the position state and call the onPositionChange callback with the new position.
+    setPosition(updatedPosition);
+    onPositionChange(updatedPosition);
 
       console.log("New position:", newPosition);
     }
   }
-
+// If there was an error getting the user's location, display the error message.
+if (locationError) {
+  return <p>Location error: {locationError}</p>;
+}
   // Do not render the map until a GPS position has been received.
   if (!position) {
     return <p>Getting location...</p>;
@@ -67,7 +78,7 @@ export default function CatchMap() {
       zoom={16}
 
       // Leaflet needs the map container to have a defined height.
-      style={{ height: "400px", width: "100%" }}
+      style={{ height: "400px", width: "100%" , borderRadius: "10px" }}
     >
       {/* OpenStreetMap provides the map tiles displayed by Leaflet. */}
       <TileLayer
