@@ -11,6 +11,11 @@ export default function DisplayCatchTile(catchData) {
         <p>Date: {catchData.catchDate}</p>
         <p>Time: {catchData.catchTime}</p>
         <p>Location: {catchData.catchLocation}</p>
+        <p>Latitude: {catchData.latitude}</p>
+        <p>Longitude: {catchData.longitude}</p>
+        </div>
+        <div className="catch-data">
+          <p>Bait: {catchData.baitType}</p>
         </div>
         {catchData.catchPhoto && (
           <div className="catch-photo-container">
