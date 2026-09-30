@@ -39,6 +39,8 @@ export default function DisplayCatch() {
             catchPhoto={catchItem.photo}
             catchTime={catchItem.catchTime}
             baitType ={catchItem.baitType}
+            latitude={catchItem.latitude}
+            longitude={catchItem.longitude}
           />
         ))}
       </section>
